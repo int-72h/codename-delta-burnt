@@ -9,18 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "StaticBody2D",
+"class": "DTSurface",
+"language": "GDScript",
+"path": "res://Surface.gd"
+}, {
 "base": "Node",
 "class": "Movable",
 "language": "GDScript",
 "path": "res://scripts/Moveable.gd"
 } ]
 _global_script_class_icons={
+"DTSurface": "",
 "Movable": ""
 }
 
 [application]
 
 config/name="delta"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [physics]
