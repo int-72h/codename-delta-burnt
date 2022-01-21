@@ -5,7 +5,7 @@ func get_class():
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var mu = 0.5
+var mu = 0.95
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

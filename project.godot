@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "DTSurface",
 "language": "GDScript",
-"path": "res://Surface.gd"
+"path": "res://scripts/Surface.gd"
 }, {
-"base": "Node",
+"base": "KinematicBody2D",
 "class": "Movable",
 "language": "GDScript",
-"path": "res://scripts/Moveable.gd"
+"path": "res://scripts/Movable.gd"
 } ]
 _global_script_class_icons={
 "DTSurface": "",
@@ -33,7 +33,3 @@ config/icon="res://icon.png"
 [physics]
 
 common/enable_pause_aware_picking=true
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"
