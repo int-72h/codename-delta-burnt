@@ -1,21 +1,25 @@
 extends KinematicBody2D
+class_name DTMovable
 
-class_name Movable
-const terminal_velocity: float = 2200.0	
-var gravity = 500
-var run_velocity = 200
-var max_jumps
-var velocity = Vector2()
+const terminal_velocity = 2200.0
+
 enum x{none,left,right}
 enum y{none,up,down}
 enum contact_surface{none,ground,wall,roof}
 enum movement_state{idle,run,jump}
+
 var location = contact_surface.ground
 var dir_x = x.none
 var dir_y = y.none
 var state = movement_state.idle
-var jumps = 0
 var currently_colliding = {x.left:Object(),x.right:Object(),y.up:Object(),y.down:Object()}
+var gravity = 500
+var run_velocity = 200
+var velocity = Vector2()
+var jumps = 0
+var max_jumps
+
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -47,10 +51,10 @@ func MovementTick():
 		
 
 # Called when the node enters the scene tree for the first time.
-func _init(_maxjumps=1,_gravity=500,run_velocity=200):
+func _init(_maxjumps=1,_gravity=500,_run_velocity=200):
 	max_jumps = _maxjumps
 	gravity = _gravity
-	run_velocity= run_velocity
+	run_velocity= _run_velocity
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

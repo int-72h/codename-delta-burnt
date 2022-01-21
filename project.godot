@@ -9,19 +9,37 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "DTCarried",
+"language": "GDScript",
+"path": "res://scripts/item/Carried.gd"
+}, {
+"base": "DTCarried",
+"class": "DTFirearm",
+"language": "GDScript",
+"path": "res://scripts/item/Firearm.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "DTMovable",
+"language": "GDScript",
+"path": "res://scripts/entity/Movable.gd"
+}, {
+"base": "DTMovable",
+"class": "DTPlayer",
+"language": "GDScript",
+"path": "res://scripts/entity/Player.gd"
+}, {
 "base": "StaticBody2D",
 "class": "DTSurface",
 "language": "GDScript",
-"path": "res://scripts/Surface.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Movable",
-"language": "GDScript",
-"path": "res://scripts/Movable.gd"
+"path": "res://scripts/entity/Surface.gd"
 } ]
 _global_script_class_icons={
-"DTSurface": "",
-"Movable": ""
+"DTCarried": "",
+"DTFirearm": "",
+"DTMovable": "",
+"DTPlayer": "",
+"DTSurface": ""
 }
 
 [application]

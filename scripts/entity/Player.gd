@@ -1,20 +1,25 @@
-extends Movable
-
-
+extends DTMovable
+class_name DTPlayer
 
 onready var debugtext = get_node("../DebugLabel")
+var pangle = true
+var facing = float()
 var up_ray
 var down_ray
 var left_ray
 var right_ray
-var facing = float()
-##const resolve = {dir.up:"UpRay",dir.down:"DownRay",dir.right:"RightRay", dir.left:"RightRay"}
-##var currently_colliding = {dir.up:Object(),dir.down:Object(),dir.right:Object(),dir.left:Object()}
+
+
+signal fire(direction,location)
+signal die(health,location)
 
 func PointTowardsMouse():
 	var mousepos = get_global_mouse_position()
-	facing = atan((mousepos.y - position.y)/(mousepos.x-position.x))
-	
+	var pos = global_position
+	if (mousepos.x > pos.x && pangle == false) || (mousepos.x < pos.x && pangle == true):
+		get_node(".").apply_scale(Vector2(-1,1))
+		pangle = !pangle
+		
 func RayHandlingTick():
 	if down_ray.is_colliding():
 		location = contact_surface.ground
@@ -65,5 +70,5 @@ func _process(delta):
 	MovementTick()
 	FrictionTick(delta)
 	GravityTick(delta)
-	debugtext.text = "PLAYER:\nVX= %s\nVY= %s\nSTATE= %s\nDIRX= %s\nDIRY= %s\nFACING= %s\nLOC:%s" % [velocity.x,velocity.y,movement_state.keys()[state],x.keys()[dir_x],y.keys()[dir_y],rad2deg(facing),contact_surface.keys()[location]]
+	debugtext.text = "PLAYER:\nVX= %s\nVY= %s\nSTATE= %s\nDIRX= %s\nDIRY= %s\nFACING= %s\nLOC:%s\nPANGLE:%s\n" % [velocity.x,velocity.y,movement_state.keys()[state],x.keys()[dir_x],y.keys()[dir_y],rad2deg(facing),contact_surface.keys()[location],pangle]
 	
