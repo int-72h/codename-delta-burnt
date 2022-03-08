@@ -20,10 +20,6 @@ var jumps = 0
 var max_jumps
 
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 func FrictionTick(delta):
 	if dir_x == x.none and (location != contact_surface.none):
 		var obj = currently_colliding[y.down]
@@ -50,12 +46,7 @@ func MovementTick():
 		jumps+=1
 		
 
-# Called when the node enters the scene tree for the first time.
 func _init(_maxjumps=1,_gravity=500,_run_velocity=200):
 	max_jumps = _maxjumps
 	gravity = _gravity
 	run_velocity= _run_velocity
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

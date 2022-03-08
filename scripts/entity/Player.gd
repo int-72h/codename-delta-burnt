@@ -15,9 +15,12 @@ signal die(health,location)
 
 func PointTowardsMouse():
 	var mousepos = get_global_mouse_position()
-	var pos = global_position
+	facing = get_angle_to(mousepos)
+	var pos = self.global_position
 	if (mousepos.x > pos.x && pangle == false) || (mousepos.x < pos.x && pangle == true):
-		get_node(".").apply_scale(Vector2(-1,1))
+		print(pos.x)
+		print(mousepos.x)
+		self.apply_scale(Vector2(-1,1))
 		pangle = !pangle
 		
 func RayHandlingTick():
@@ -39,6 +42,9 @@ func RayHandlingTick():
 	
 # Called when the node enters the scene tree for the first time.
 func _unhandled_input(event):
+	if event.is_action_pressed("mouse1",true):
+		print("bang")
+		emit_signal("fire",facing,pangle)
 	if event.is_action_pressed("ui_left",true):
 		dir_x = x.left
 		state = movement_state.run
@@ -52,17 +58,14 @@ func _unhandled_input(event):
 		dir_x = x.none
 		state = movement_state.idle
 
-func _init():
-	._init(1,500)
-
 func _ready():
+	._init(1,500)
 	up_ray = get_node("UpRay")
 	down_ray = get_node("DownRay")
 	left_ray = get_node("LeftRay")
 	right_ray = get_node("RightRay")
 	down_ray = get_node("DownRay")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	PointTowardsMouse()
 	RayHandlingTick()
@@ -70,5 +73,5 @@ func _process(delta):
 	MovementTick()
 	FrictionTick(delta)
 	GravityTick(delta)
-	debugtext.text = "PLAYER:\nVX= %s\nVY= %s\nSTATE= %s\nDIRX= %s\nDIRY= %s\nFACING= %s\nLOC:%s\nPANGLE:%s\n" % [velocity.x,velocity.y,movement_state.keys()[state],x.keys()[dir_x],y.keys()[dir_y],rad2deg(facing),contact_surface.keys()[location],pangle]
+	debugtext.text = "PLAYER:\nVX= %s\nVY= %s\nSTATE= %s\nDIRX= %s\nDIRY= %s\nFACING= %s\nLOC:%s\nPANGLE:%s\n" % [velocity.x,velocity.y,movement_state.keys()[state],x.keys()[dir_x],y.keys()[dir_y],facing,contact_surface.keys()[location],pangle]
 	
