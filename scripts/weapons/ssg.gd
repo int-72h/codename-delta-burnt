@@ -1,10 +1,10 @@
-extends DTFirearm
+extends DTShotgun
+
 var _scene = preload("res://Bullet.tscn")
 func _ready():
-	get_node("/root/root/Player").connect("fire",self,"_on_Player_fire")
 	get_node("/root/root/Player").connect("reload",self,"_on_reload")
-	.init(_scene, 15, 0.2, 10, 7, 1, 100)
-# This file is a simple stub specifing the firearms' damage types. -h
+	get_node("/root/root/Player").connect("fire",self,"_on_Player_fire")
+	.init(_scene, 5, 2, 15, 2, 3, 48)
 
 
 
@@ -12,8 +12,8 @@ func _ready():
 func _on_Player_fire(direction,pangle):
 	print("%s/%s" % [current_mag,current_ammo])
 	if self.is_inside_tree():
-		.fire(direction,pangle)
+		.s_fire(direction,pangle,8,0.5)
+
 func _on_reload():
 	print("reloading!")
 	.reload()
-

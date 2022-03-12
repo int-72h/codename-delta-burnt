@@ -1,6 +1,5 @@
 extends KinematicBody2D
-
-
+class_name Bullet
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -24,7 +23,8 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity)
 	if collision:
 		if collision.collider.name != "Player":
-			queue_free()
+				queue_free()
+		print(collision.collider.name)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -12,6 +12,7 @@ var right_ray
 
 signal fire(direction,location)
 signal die(health,location)
+signal reload()
 
 func PointTowardsMouse():
 	var mousepos = get_global_mouse_position()
@@ -43,8 +44,9 @@ func RayHandlingTick():
 # Called when the node enters the scene tree for the first time.
 func _unhandled_input(event):
 	if event.is_action_pressed("mouse1",true):
-		print("bang")
 		emit_signal("fire",facing,pangle)
+	if event.is_action_pressed("mouse2",true):
+		emit_signal("reload")
 	if event.is_action_pressed("ui_left",true):
 		dir_x = x.left
 		state = movement_state.run
