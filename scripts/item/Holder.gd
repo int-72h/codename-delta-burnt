@@ -1,9 +1,6 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# whole thing is very janky to begin with, reloading reloads both, weapon choice is fixed 
 onready var wepscenes = [preload("res://1911.tscn").instance(),preload("res://SSG.tscn").instance()]
 var weapon = 0
 var last_weapon = 0
@@ -27,8 +24,3 @@ func _ready():
 	showwep(wepscenes[0])
 	pass
 	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

@@ -15,5 +15,6 @@ func _on_Player_fire(direction,pangle):
 		.s_fire(direction,pangle,8,0.5)
 
 func _on_reload():
-	print("reloading!")
-	.reload()
+	if self.is_inside_tree():
+		print("reloading!")
+		.reload()

@@ -1,10 +1,6 @@
 extends DTFirearm
 class_name DTShotgun
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 func s_fire(base_dir,pangle,pellets,spread):
 	if .firecheck():
 		var z = 0

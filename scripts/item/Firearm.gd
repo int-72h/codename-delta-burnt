@@ -61,7 +61,7 @@ func reload():
 		
 func _fire(direction,pangle):
 	var bullet = scene.instance()
-	bullet.init(bullet_velocity,direction,get_child(0).get_global_position(),pangle) # DTpoint, the muzzle
+	bullet.init(bullet_velocity,direction,get_child(0).get_global_position(),pangle,damage) # DTpoint, the muzzle
 	if pangle:
 		bullet.apply_scale(Vector2(0.05,0.05))
 	else:

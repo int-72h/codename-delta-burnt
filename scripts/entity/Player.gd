@@ -4,10 +4,6 @@ class_name DTPlayer
 onready var debugtext = get_node("../DebugLabel")
 var pangle = true
 var facing = float()
-var up_ray
-var down_ray
-var left_ray
-var right_ray
 
 
 signal fire(direction,location)
@@ -24,22 +20,6 @@ func PointTowardsMouse():
 		self.apply_scale(Vector2(-1,1))
 		pangle = !pangle
 		
-func RayHandlingTick():
-	if down_ray.is_colliding():
-		location = contact_surface.ground
-		jumps=0
-		currently_colliding[y.down] = down_ray.get_collider()
-	elif up_ray.is_colliding():
-		location = contact_surface.roof
-		currently_colliding[y.up] = up_ray.get_collider()
-	elif left_ray.is_colliding():
-		location = contact_surface.wall
-		currently_colliding[x.left] = left_ray.get_collider()
-	elif right_ray.is_colliding():
-		location = contact_surface.wall
-		currently_colliding[x.right] = right_ray.get_collider()
-	else:
-		location = contact_surface.none
 	
 # Called when the node enters the scene tree for the first time.
 func _unhandled_input(event):
@@ -62,13 +42,8 @@ func _unhandled_input(event):
 
 func _ready():
 	._init(1,500)
-	up_ray = get_node("UpRay")
-	down_ray = get_node("DownRay")
-	left_ray = get_node("LeftRay")
-	right_ray = get_node("RightRay")
-	down_ray = get_node("DownRay")
 
-func _process(delta):
+func _physics_process(delta):
 	PointTowardsMouse()
 	RayHandlingTick()
 	move_and_slide(velocity)

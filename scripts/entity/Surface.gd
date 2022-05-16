@@ -1,14 +1,7 @@
 extends StaticBody2D
 class_name DTSurface
 
-var mu = 0.95
+var mu = 0.95 # mu isn't applied F=mu*R but merely Vx=Vx*mu
 
 func get_class():
-	return "DTSurface"
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	return "DTSurface" 

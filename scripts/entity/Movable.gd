@@ -18,13 +18,34 @@ var run_velocity = 200
 var velocity = Vector2()
 var jumps = 0
 var max_jumps
+var up_ray
+var down_ray
+var left_ray
+var right_ray
 
 
+func RayHandlingTick():
+	if down_ray.is_colliding():
+		location = contact_surface.ground
+		jumps=0
+		currently_colliding[y.down] = down_ray.get_collider()
+	elif up_ray.is_colliding():
+		location = contact_surface.roof
+		currently_colliding[y.up] = up_ray.get_collider()
+	elif left_ray.is_colliding():
+		location = contact_surface.wall
+		currently_colliding[x.left] = left_ray.get_collider()
+	elif right_ray.is_colliding():
+		location = contact_surface.wall
+		currently_colliding[x.right] = right_ray.get_collider()
+	else:
+		location = contact_surface.none
+		
 func FrictionTick(delta):
 	if dir_x == x.none and (location != contact_surface.none):
 		var obj = currently_colliding[y.down]
 		if obj.call("get_class") == "DTSurface":
-			velocity.x = currently_colliding[y.down].mu * velocity.x
+			velocity.x = currently_colliding[y.down].mu * velocity.x 
 			
 			
 		
@@ -50,3 +71,8 @@ func _init(_maxjumps=1,_gravity=500,_run_velocity=200):
 	max_jumps = _maxjumps
 	gravity = _gravity
 	run_velocity= _run_velocity
+	up_ray = get_node("UpRay")
+	down_ray = get_node("DownRay")
+	left_ray = get_node("LeftRay")
+	right_ray = get_node("RightRay")
+	down_ray = get_node("DownRay")
