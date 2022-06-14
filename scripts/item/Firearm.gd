@@ -6,19 +6,22 @@ var scene: PackedScene
 var damage: float
 var firing_speed: float
 var bullet_velocity: float
-var reload_time: int
+var reload_time: float
 var current_ammo: int
 var reserve_ammo: int
 var mag_size: int
 var current_mag: int
 var spinamt: float
-enum state{idle,firing,reloading}
+enum state { idle, firing, reloading }
 var current_state: int
 onready var timer = Timer.new()
+
+
 func _ready():
-	get_tree().get_root().call_deferred("add_child",timer)
-	
-func init(_scene,_damage,_firing_speed,_bullet_velocity,_magazine_size,_reload_time,_reserve_ammo): # the mother of all setters
+	get_tree().get_root().call_deferred("add_child", timer)
+
+
+func init(_scene, _damage, _firing_speed, _bullet_velocity, _magazine_size, _reload_time, _reserve_ammo):  # the mother of all setters
 	scene = _scene
 	damage = _damage
 	firing_speed = _firing_speed
@@ -29,12 +32,14 @@ func init(_scene,_damage,_firing_speed,_bullet_velocity,_magazine_size,_reload_t
 	current_mag = _magazine_size
 	reload_time = _reload_time
 	timer.one_shot = true
-	
-func fire(direction,pangle):
+
+
+func fire(direction, pangle):
 	if firecheck():
-		_fire(direction,pangle)
+		_fire(direction, pangle)
 		current_mag -= 1
-	
+
+
 func firecheck():
 	if current_state == state.idle and (current_mag > 0):
 		current_state = state.firing
@@ -44,34 +49,37 @@ func firecheck():
 	else:
 		return false
 
+
 func reload():
 	if current_state == state.idle:
+		if current_ammo == 0:
+			print("empty!")
+			return
 		current_state = state.reloading
 		timer.wait_time = reload_time
 		timer.start()
-		spinamt = (2*PI / reload_time)
+		spinamt = (2 * PI / reload_time)
 		if current_ammo < mag_size:
 			current_mag = current_ammo
 		else:
 			current_mag = mag_size
 		current_ammo = current_ammo - current_mag
-		
-	
 
-		
-func _fire(direction,pangle):
+
+func _fire(direction, pangle):
 	var bullet = scene.instance()
-	bullet.init(bullet_velocity,direction,get_child(0).get_global_position(),pangle,damage) # DTpoint, the muzzle
+	bullet.init(bullet_velocity, direction, get_child(0).get_global_position(), pangle, damage)  # DTpoint, the muzzle
 	if pangle:
-		bullet.apply_scale(Vector2(0.05,0.05))
+		bullet.apply_scale(Vector2(0.05, 0.05))
 	else:
-		bullet.apply_scale(Vector2(-0.05,0.05))
+		bullet.apply_scale(Vector2(-0.05, 0.05))
 	get_node("/root/root").add_child(bullet)
+
 
 func _physics_process(delta):
 	if current_state == state.reloading:
 		.look(false)
-		self.rotate(spinamt*delta)
+		self.rotate(spinamt * delta)
 	if timer.is_stopped():
 		.look(true)
 		current_state = state.idle
