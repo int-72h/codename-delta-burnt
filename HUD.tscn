@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://temp_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://HUD.gd" type="Script" id=2]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="AmmoLabel" type="Label" parent="."]
+margin_top = 500.0
+margin_right = 80.0
+margin_bottom = 537.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Ammo"
+
+[node name="Ammo" type="Label" parent="."]
+margin_top = 536.0
+margin_right = 80.0
+margin_bottom = 577.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1
+
+[node name="HealthLabel" type="Label" parent="."]
+margin_left = 900.0
+margin_top = 500.0
+margin_right = 1000.0
+margin_bottom = 540.0
+custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Health"
+
+[node name="Health" type="Label" parent="."]
+margin_left = 896.0
+margin_top = 537.0
+margin_right = 1016.0
+margin_bottom = 578.0
+custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "100"
+align = 1
+
+[node name="SpeedLabel" type="Label" parent="."]
+margin_left = 450.0
+margin_top = 500.0
+margin_right = 500.0
+margin_bottom = 540.0
+custom_colors/font_color = Color( 0.215686, 0, 0.807843, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Speed"
+align = 1
+
+[node name="Speed" type="Label" parent="."]
+margin_left = 450.0
+margin_top = 541.0
+margin_right = 550.0
+margin_bottom = 582.0
+custom_colors/font_color = Color( 0.215686, 0, 0.807843, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1

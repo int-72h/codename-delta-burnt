@@ -21,7 +21,7 @@ func PointTowardsMouse():
 		pangle = !pangle
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _unhandled_input(event):
 	if event.is_action_pressed("mouse1", true):
 		emit_signal("fire", facing, pangle)
@@ -36,13 +36,15 @@ func _unhandled_input(event):
 	elif event.is_action_pressed("ui_select"):
 		dir_y = y.up
 		state = movement_state.jump
+	elif event.is_action_pressed("ui_home",true):
+		health -= 1
 	elif dir_x == x.left and event.is_action_released("ui_left") or (dir_x == x.right and event.is_action_released("ui_right")):
 		dir_x = x.none
 		state = movement_state.idle
 
 
 func _ready():
-	._init(1, 500)
+	._init(1, 500,100)
 
 
 func _physics_process(delta):

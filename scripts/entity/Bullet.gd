@@ -30,7 +30,7 @@ func _ready():
 func _physics_process(delta):
 	var collision = move_and_collide(velocity)
 	if collision:
-		if collision.collider.name == "DTSurface":  # collision issues stem here probably
+		if collision.collider.get_class() == "DTSurface":
 			queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

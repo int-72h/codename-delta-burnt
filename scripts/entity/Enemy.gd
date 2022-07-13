@@ -4,7 +4,6 @@ const dt_name = "DTEnemy"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var health = 50
 signal die
 
 
@@ -20,7 +19,6 @@ func _physics_process(delta):
 	GravityTick(delta)
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		print(collision.collider.name)
 		if collision.collider.get("dt_name") == "Bullet":
 			health = health - collision.collider.damage
 			print("ow")

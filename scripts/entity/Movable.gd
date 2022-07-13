@@ -17,7 +17,7 @@ var gravity = 500
 var run_velocity = 200
 var jump_velocity = 100
 var velocity = Vector2()
-var fvelocity = Vector2()
+var health
 var rep = false
 var jumps = 0
 var max_jumps
@@ -71,10 +71,11 @@ func MovementTick():
 		jumps += 1
 
 
-func _init(_maxjumps = 1, _gravity = 500, _run_velocity = 200):
+func _init(_maxjumps = 1, _gravity = 500, _run_velocity = 200, _health=100):
 	max_jumps = _maxjumps
 	gravity = _gravity
 	run_velocity = _run_velocity
+	health = _health
 	up_ray = get_node("UpRay")
 	down_ray = get_node("DownRay")
 	left_ray = get_node("LeftRay")
@@ -88,6 +89,7 @@ var run_force = 8000
 var mass = 1
 var jump_force = 100000
 var force = Vector2()
+var fvelocity = Vector2()
 
 #func fFrictionTick():
 #	if dir_x == x.none and (location != contact_surface.none):
