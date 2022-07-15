@@ -5,7 +5,7 @@ var _scene = preload("res://Bullet.tscn")
 func _ready():
 	get_node("/root/root/Player").connect("fire", self, "_on_Player_fire")
 	get_node("/root/root/Player").connect("reload", self, "_on_reload")
-	.init(_scene, 15, 0.2, 10, 7, 1, 100)
+	.init(_scene, 15, 0.2, 10, 7, 1, 100,15)
 
 
 # This file is a simple stub specifing the firearms' damage types

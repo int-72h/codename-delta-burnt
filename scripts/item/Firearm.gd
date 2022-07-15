@@ -12,16 +12,19 @@ var reserve_ammo: int
 var mag_size: int
 var current_mag: int
 var spinamt: float
-enum state { idle, firing, reloading }
+var entropy: float
+enum state { idle = 0, firing = 1, reloading = 2}
 var current_state: int
+var reload_time_left: float
 onready var timer = Timer.new()
 
+signal const_change(type,val)
 
 func _ready():
 	get_tree().get_root().call_deferred("add_child", timer)
 
 
-func init(_scene, _damage, _firing_speed, _bullet_velocity, _magazine_size, _reload_time, _reserve_ammo):  # the mother of all setters
+func init(_scene, _damage, _firing_speed, _bullet_velocity, _magazine_size, _reload_time, _reserve_ammo,_entropy = 10.0):  # the mother of all setters
 	scene = _scene
 	damage = _damage
 	firing_speed = _firing_speed
@@ -31,6 +34,7 @@ func init(_scene, _damage, _firing_speed, _bullet_velocity, _magazine_size, _rel
 	current_ammo = reserve_ammo
 	current_mag = _magazine_size
 	reload_time = _reload_time
+	entropy = _entropy
 	timer.one_shot = true
 
 
@@ -38,6 +42,7 @@ func fire(direction, pangle):
 	if firecheck():
 		_fire(direction, pangle)
 		current_mag -= 1
+		emit_signal("const_change",0,entropy)
 
 
 func firecheck():
@@ -52,18 +57,20 @@ func firecheck():
 
 func reload():
 	if current_state == state.idle:
-		if current_ammo == 0:
-			print("empty!")
+		if current_ammo == 0 or current_mag == mag_size:
+			print("empty, or full!")
 			return
 		current_state = state.reloading
 		timer.wait_time = reload_time
 		timer.start()
 		spinamt = (2 * PI / reload_time)
-		if current_ammo < mag_size:
-			current_mag = current_ammo
-		else:
+		var ammo_needed = mag_size - current_mag
+		if current_ammo <= ammo_needed:
+			current_mag += current_ammo
+			current_ammo = 0
+		else:	
 			current_mag = mag_size
-		current_ammo = current_ammo - current_mag
+			current_ammo = current_ammo - ammo_needed
 
 
 func _fire(direction, pangle):
@@ -77,6 +84,7 @@ func _fire(direction, pangle):
 
 
 func _physics_process(delta):
+	reload_time_left = timer.time_left
 	if current_state == state.reloading:
 		.look(false)
 		self.rotate(spinamt * delta)

@@ -15,4 +15,8 @@ func _ready():
 func _process(delta):
 	$HUD.set_health($Player.get("health"))
 	$HUD.set_speed($Player.get("velocity").x)
-	$HUD.set_ammo($Player/CarriedItem.get_children()[0].get("current_mag"),$Player/CarriedItem.get_children()[0].get("current_ammo")) # This is hideous.
+	$HUD.set_firearm($Player/CarriedItem.get_children()[0]) # do this on event not every frame
+	$HUD.set_entropy($Player.get("consts")[0])
+	$HUD.set_ammo() # ditto
+	$HUD.set_debug($Player.get("debug_text"))
+

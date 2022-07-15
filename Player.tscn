@@ -12,7 +12,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 24, 47 )
+extents = Vector2( 13, 25 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -21,23 +21,24 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -2.84217e-14, -5.68434e-14 )
-scale = Vector2( 0.47, 0.47 )
+scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
 
 [node name="DownRay" type="RayCast2D" parent="."]
 enabled = true
+cast_to = Vector2( 0, 26 )
 
 [node name="UpRay" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, -50 )
+cast_to = Vector2( 0, -25 )
 
 [node name="RightRay" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 25, 0 )
+cast_to = Vector2( 12.5, 0 )
 
 [node name="LeftRay" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( -25, 0 )
+cast_to = Vector2( -13, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

@@ -6,7 +6,7 @@ var _scene = preload("res://Bullet.tscn")
 func _ready():
 	get_node("/root/root/Player").connect("reload", self, "_on_reload")
 	get_node("/root/root/Player").connect("fire", self, "_on_Player_fire")
-	.init(_scene, 5, 0.1, 20, 15, 0.5, 48)  #scne,dmg,firespd,bulvel,magsz,rlt,rzammo
+	.init(_scene, 5, 0.1, 20, 15, 0.5, 48,150)  #scne,dmg,firespd,bulvel,magsz,rlt,rzammo,ent
 
 
 #since I can't put this in DTFirearm, it goes here.
