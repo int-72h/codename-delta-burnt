@@ -1,11 +1,11 @@
 extends DTFirearm
-var _scene = preload("res://Bullet.tscn")
+var _scene = preload("res://Scenes/Bullet.tscn")
 
 
 func _ready():
 	get_node("/root/root/Player").connect("fire", self, "_on_Player_fire")
 	get_node("/root/root/Player").connect("reload", self, "_on_reload")
-	.init(_scene, 15, 0.2, 10, 7, 1, 100,15)
+	.init(_scene, 15, 0.2, 10, 7, 1, 100,1.5)
 
 
 # This file is a simple stub specifing the firearms' damage types
@@ -22,3 +22,6 @@ func _on_reload():
 	if self.is_inside_tree():
 		print("reloading!")
 		.reload()
+
+func on_hit(damage):
+	get_node("/root/root/Player").call("on_hit",damage)

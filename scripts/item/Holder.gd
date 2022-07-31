@@ -1,7 +1,7 @@
 extends Node2D
 
 # whole thing is very janky to begin with, weapon choice is fixed
-onready var wepscenes = [preload("res://1911.tscn").instance(), preload("res://SSG.tscn").instance()]
+onready var wepscenes = [preload("res://Scenes/1911.tscn").instance(), preload("res://Scenes/SSG.tscn").instance()]
 var weapon = 0
 var last_weapon = 0
 signal wep_switch

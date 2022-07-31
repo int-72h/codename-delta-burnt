@@ -13,9 +13,11 @@ var mag_size: int
 var current_mag: int
 var spinamt: float
 var entropy: float
+var look: bool = true
 enum state { idle = 0, firing = 1, reloading = 2}
 var current_state: int
 var reload_time_left: float
+var owner_id
 onready var timer = Timer.new()
 
 signal const_change(type,val)
@@ -35,6 +37,7 @@ func init(_scene, _damage, _firing_speed, _bullet_velocity, _magazine_size, _rel
 	current_mag = _magazine_size
 	reload_time = _reload_time
 	entropy = _entropy
+	owner_id = get_instance_id()
 	timer.one_shot = true
 
 
@@ -58,12 +61,11 @@ func firecheck():
 func reload():
 	if current_state == state.idle:
 		if current_ammo == 0 or current_mag == mag_size:
-			print("empty, or full!")
 			return
 		current_state = state.reloading
 		timer.wait_time = reload_time
 		timer.start()
-		spinamt = (2 * PI / reload_time)
+		spinamt = ((2 * PI) / reload_time)
 		var ammo_needed = mag_size - current_mag
 		if current_ammo <= ammo_needed:
 			current_mag += current_ammo
@@ -75,7 +77,7 @@ func reload():
 
 func _fire(direction, pangle):
 	var bullet = scene.instance()
-	bullet.init(bullet_velocity, direction, get_child(0).get_global_position(), pangle, damage)  # DTpoint, the muzzle
+	bullet.init(bullet_velocity, direction, get_child(0).get_global_position(), pangle, damage,owner_id)  # DTpoint, the muzzle
 	if pangle:
 		bullet.apply_scale(Vector2(0.05, 0.05))
 	else:
@@ -89,5 +91,8 @@ func _physics_process(delta):
 		.look(false)
 		self.rotate(spinamt * delta)
 	if timer.is_stopped():
-		.look(true)
+		if look:
+			.look(true)
 		current_state = state.idle
+func on_hit(dmg):
+	get_parent().get_parent().call("on_hit",dmg)
