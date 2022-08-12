@@ -2,7 +2,7 @@
 
 [ext_resource path="res://temp_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://HUD.gd" type="Script" id=2]
-[ext_resource path="res://assets/deimos.png" type="Texture" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFontData" id=1]
 resource_local_to_scene = true
@@ -262,7 +262,7 @@ margin_left = 800.0
 margin_top = 560.0
 margin_right = 1023.0
 margin_bottom = 603.0
-text = "Delta-T Milestone 1 01/08/22 
+text = "Delta-T Milestone 1 03/08/22 
 PRE-ALPHA "
 align = 1
 
