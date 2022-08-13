@@ -6,10 +6,6 @@ func s_fire(base_dir, pangle, pellets, spread, velocity_variance, force):
 	if .firecheck():
 		var player = get_node("/root/root/Player")
 		var pforce = player.get("force")
-		if pangle:
-			player.set("force", Vector2(pforce.x - force, pforce.y))
-		else:
-			player.set("force", Vector2(pforce.x + force, pforce.y))
 		var z = 0
 		var temp = bullet_velocity
 		while z < pellets:

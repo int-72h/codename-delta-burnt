@@ -84,13 +84,6 @@ func _init(_maxjumps = 1, _gravity = 500, _run_velocity = 200, _health=100):
 
 
 ### FORCES TESTING ###
-var fg = 981
-var run_force = 8000
-var mass = 1
-var jump_force = 100000
-var force = Vector2()
-var fvelocity = Vector2()
-
 #func fFrictionTick():
 #	if dir_x == x.none and (location != contact_surface.none):
 #		var obj = currently_colliding[y.down]
