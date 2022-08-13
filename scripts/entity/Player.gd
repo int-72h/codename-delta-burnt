@@ -4,7 +4,7 @@ class_name DTPlayer
 onready var debugtext = get_node("../DebugLabel")
 var pangle = true
 var facing = float()
-var debug_text
+var debug_text = ""
 var consts = [0.0,0.0,0] # entropy,juice,?
 onready var Abilities = $Abilities
 signal fire(direction, location)

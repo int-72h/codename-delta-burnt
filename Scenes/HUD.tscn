@@ -258,11 +258,11 @@ texture = ExtResource( 3 )
 stretch_mode = 1
 
 [node name="Label" type="Label" parent="."]
-margin_left = 800.0
-margin_top = 560.0
-margin_right = 1023.0
-margin_bottom = 603.0
-text = "Delta-T Milestone 1 03/08/22 
+margin_left = 801.0
+margin_top = 561.0
+margin_right = 1024.0
+margin_bottom = 604.0
+text = "Delta-T Milestone 1 13/08/22 
 PRE-ALPHA "
 align = 1
 

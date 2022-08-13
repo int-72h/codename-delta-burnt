@@ -4,7 +4,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-# Called when the node enters the scene tree for the first time.
+var grunt = preload("res://assets/grunt.mp3")
 func _ready():
 	pass # Replace with function body.
 
@@ -20,3 +20,9 @@ func _on_Button_pressed():
 
 func _on_Button2_pressed():
 	get_tree().quit()
+
+
+func _on_Button3_pressed():
+	$AudioStreamPlayer2D.stream = grunt
+	$AudioStreamPlayer2D.play()
+	

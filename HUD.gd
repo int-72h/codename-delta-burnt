@@ -3,6 +3,9 @@ extends CanvasLayer
 var current_weapon
 onready var player_node = get_node("/root/root/Player/Abilities")
 var ability_active = [0,0,0] # inefficient
+var good_face = load("res://assets/good_face_placeholder.png")
+var med_face = load("res://assets/medium_face_placeholder.png")
+var bad_face = load("res://assets/bad_face_placeholder.png")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -24,7 +27,7 @@ func set_consts(consts):
 		get_node("ConstBar"+str(x)).value = consts[x]
 func _process(_delta):
 	hud_ability_tick()
-	if current_weapon.get("current_state") == 2:
+	if current_weapon.get("current_state") == 2: # ok what you need to do is get the firearm linked to an enum in the player- then read off of that and get the player to emit the signal???
 		$MagBar.hide()
 		$MagLabel.hide()
 		$AmmoBar.hide()
@@ -39,6 +42,12 @@ func _process(_delta):
 	else:
 		$ReloadBar.hide()
 		$ReloadLabel.hide()
+	if current_weapon.get("current_state") == 1 or  current_weapon.get("current_state") ==  2:
+		$Face.texture = med_face
+	elif $HealthBar.value < 25:
+		$Face.texture = bad_face
+	else:
+		$Face.texture = good_face
 		
 func set_debug(text):
 	$DebugLabel.text = text

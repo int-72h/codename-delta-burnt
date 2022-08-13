@@ -55,3 +55,9 @@ script = ExtResource( 7 )
 [node name="AnimatedSprite2" parent="Node2D" instance=ExtResource( 5 )]
 visible = false
 script = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -39.0
+margin_top = -214.0
+margin_right = 33.0
+margin_bottom = -188.0

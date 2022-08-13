@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Abilities.gd" type="Script" id=1]
-[ext_resource path="res://scripts/entity/LevelEndTrigger1.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/placeholder_wall.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/CarriedItem.tscn" type="PackedScene" id=4]
@@ -9,6 +8,7 @@
 [ext_resource path="res://scripts/entity/Surface.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
+[ext_resource path="res://scripts/entity/LevelEndTrigger.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 361, 28.5 )
@@ -79,15 +79,11 @@ position = Vector2( 159, 3 )
 scale = Vector2( 1.805, 0.295 )
 texture = ExtResource( 3 )
 
-[connection signal="ability_not_ready" from="Player/Abilities" to="HUD" method="_on_abl_ability_not_ready"]
-[connection signal="ability_ready" from="Player/Abilities" to="HUD" method="_on_abl_ability_ready"]
-[connection signal="ability_start" from="Player/Abilities" to="HUD" method="_on_abl_ability_start"]
-[connection signal="ability_stop" from="Player/Abilities" to="HUD" method="_on_abl_ability_stop"]
 [node name="LevelEndTrigger" type="Area2D" parent="."]
 position = Vector2( 142, 293 )
 collision_layer = 0
 collision_mask = 2
-script = ExtResource( 1 )
+script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEndTrigger"]
 position = Vector2( -1, 0 )

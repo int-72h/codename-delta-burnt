@@ -11,7 +11,7 @@ func _process(delta):
 	$HUD.set_debug($Player.get("debug_text"))
 
 func _ready():
-	#$Player/Abilities.call("init",[0,1])
+	$Player/Abilities.call("init",[0,1])
 	for x in enemy_spawn_array:
 		var z = x[0].instance()
 		z.set("global_position",x[1])
