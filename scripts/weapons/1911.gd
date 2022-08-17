@@ -1,4 +1,5 @@
 extends DTFirearm
+const classname = "1911"
 var _scene = preload("res://Scenes/Bullet.tscn")
 
 

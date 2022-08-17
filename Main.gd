@@ -3,12 +3,7 @@ const enemy_scene = preload("res://Scenes/Enemy.tscn")
 const enemy_spawn_array = [[enemy_scene,Vector2(128,192)]] # [[scene,positioning]...]
 var enemies = []
 func _process(delta):
-	$HUD.set_health($Player.get("health"))
-	$HUD.set_speed($Player.get("velocity").x)
-	$HUD.set_firearm($Player/CarriedItem.get_children()[0]) # do this on event not every frame
-	$HUD.set_consts($Player.get("consts"))
-	$HUD.set_ammo() # ditto
-	$HUD.set_debug($Player.get("debug_text"))
+	pass
 
 func _ready():
 	$Player/Abilities.call("init",[0,1])
@@ -19,3 +14,4 @@ func _ready():
 		#z.connect("hurt", z, "on_hit")
 		get_node("/root/root").add_child(z)
 		enemies.append(z)
+	$Player/HUD.call("set_text","Here's some very enthralling text indeed! Lorem ipsum and all that...",5)

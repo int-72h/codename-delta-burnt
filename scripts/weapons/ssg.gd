@@ -1,5 +1,5 @@
 extends DTShotgun
-
+const classname = "shotgun"
 var _scene = preload("res://Scenes/Bullet.tscn")
 
 

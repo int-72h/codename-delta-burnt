@@ -9,6 +9,7 @@ var consts = [0.0,0.0,0] # entropy,juice,?
 onready var Abilities = $Abilities
 signal fire(direction, location)
 signal die(health, location)
+signal pause
 signal reload
 
 func PointTowardsMouse():
@@ -42,6 +43,8 @@ func _unhandled_input(event):
 	elif dir_x == x.left and event.is_action_released("ui_left") or (dir_x == x.right and event.is_action_released("ui_right")):
 		dir_x = x.none
 		state = movement_state.idle
+	elif event.is_action_pressed("ui_esc",true):
+		emit_signal("pause")
 	Abilities.InputCheck(event)
 
 

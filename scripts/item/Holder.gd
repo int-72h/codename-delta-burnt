@@ -7,7 +7,6 @@ var last_weapon = 0
 signal wep_switch
 signal wep_fire(entropy)
 func _unhandled_key_input(event):
-	print_stray_nodes()
 	last_weapon = weapon
 	if event.is_action_pressed("1", true):
 		weapon = 0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://temp_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://HUD.gd" type="Script" id=2]
+[ext_resource path="res://scripts/ui/HUD.gd" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFontData" id=1]
 resource_local_to_scene = true
@@ -51,6 +52,14 @@ bg_color = Color( 1, 0.819608, 0, 0.466667 )
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 1, 1, 1, 0 )
 anti_aliasing = false
+
+[sub_resource type="DynamicFontData" id=14]
+resource_local_to_scene = true
+font_path = "res://assets/msgothic.ttf"
+
+[sub_resource type="DynamicFont" id=15]
+size = 18
+font_data = SubResource( 14 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -202,7 +211,7 @@ percent_visible = false
 [node name="MagBar" type="ProgressBar" parent="."]
 margin_left = 32.0
 margin_top = 64.0
-margin_right = 300.0
+margin_right = 256.0
 margin_bottom = 96.0
 rect_rotation = 90.0
 custom_styles/fg = SubResource( 13 )
@@ -213,9 +222,9 @@ percent_visible = false
 
 [node name="AmmoBar" type="ProgressBar" parent="."]
 margin_left = 32.0
-margin_top = 332.0
-margin_right = 300.0
-margin_bottom = 364.0
+margin_top = 289.0
+margin_right = 256.0
+margin_bottom = 321.0
 rect_rotation = 90.0
 custom_styles/fg = SubResource( 10 )
 custom_styles/bg = SubResource( 4 )
@@ -225,10 +234,9 @@ allow_lesser = true
 percent_visible = false
 
 [node name="ReloadBar" type="ProgressBar" parent="."]
-visible = false
 margin_left = 32.0
 margin_top = 64.0
-margin_right = 544.0
+margin_right = 480.0
 margin_bottom = 96.0
 rect_rotation = 90.0
 custom_styles/fg = SubResource( 3 )
@@ -240,7 +248,7 @@ percent_visible = false
 [node name="HealthBar" type="ProgressBar" parent="."]
 margin_left = 64.0
 margin_top = 64.0
-margin_right = 600.0
+margin_right = 512.0
 margin_bottom = 96.0
 rect_rotation = 90.0
 custom_styles/fg = SubResource( 2 )
@@ -257,13 +265,29 @@ rect_scale = Vector2( 0.1, 0.05 )
 texture = ExtResource( 3 )
 stretch_mode = 1
 
+[node name="WeaponIcon" type="TextureRect" parent="."]
+margin_top = 512.0
+margin_right = 642.0
+margin_bottom = 1792.0
+rect_scale = Vector2( 0.1, 0.05 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+
 [node name="Label" type="Label" parent="."]
-margin_left = 801.0
-margin_top = 561.0
-margin_right = 1024.0
-margin_bottom = 604.0
-text = "Delta-T Milestone 1 13/08/22 
+margin_left = 800.0
+margin_top = 560.0
+margin_right = 1023.0
+margin_bottom = 603.0
+text = "Delta-T Milestone 1 14/08/22 
 PRE-ALPHA "
+align = 1
+
+[node name="WeaponLabel" type="Label" parent="."]
+margin_top = 576.0
+margin_right = 64.0
+margin_bottom = 600.0
+custom_fonts/font = ExtResource( 1 )
 align = 1
 
 [node name="DebugLabel" type="Label" parent="."]
@@ -277,7 +301,8 @@ align = 2
 margin_left = 937.0
 margin_right = 1009.0
 margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 15 )
 text = "Speed Up"
 
 [node name="AbilityLabel1" type="Label" parent="."]
@@ -287,3 +312,15 @@ margin_right = 1009.0
 margin_bottom = 35.0
 custom_fonts/font = ExtResource( 1 )
 text = "Add Dmg"
+
+[node name="TextBox" type="RichTextLabel" parent="."]
+margin_left = 64.0
+margin_top = 544.0
+margin_right = 513.0
+margin_bottom = 600.0
+custom_fonts/normal_font = ExtResource( 1 )
+visible_characters = 0
+percent_visible = 0.0
+
+[node name="PauseMenu" parent="." instance=ExtResource( 4 )]
+visible = false

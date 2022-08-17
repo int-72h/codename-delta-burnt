@@ -1,9 +1,9 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[sub_resource type="DynamicFontData" id=3]
+[sub_resource type="DynamicFontData" id=14]
 resource_local_to_scene = true
 font_path = "res://assets/msgothic.ttf"
 
 [resource]
-outline_color = Color( 1, 1, 1, 0 )
-font_data = SubResource( 3 )
+size = 18
+font_data = SubResource( 14 )
