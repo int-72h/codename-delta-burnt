@@ -8,7 +8,7 @@ func look(set):
 	look_at_mouse = set
 
 
-func _process(delta):
+func _process(_delta):
 	if look_at_mouse:
 		look_at(get_global_mouse_position())
 	pass

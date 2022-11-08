@@ -12,8 +12,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	var collision = get_overlapping_bodies()
 	if collision != []:
 		print(collision)
-		get_tree().change_scene("res://Scenes/Level2.tscn")
+		var _z = get_tree().change_scene("res://Scenes/Level2.tscn")

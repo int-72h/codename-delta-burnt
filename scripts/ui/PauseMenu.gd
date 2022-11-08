@@ -23,7 +23,7 @@ func _on_Button3_pressed(): #restart
 	get_tree().change_scene("res://Scenes/Level1.tscn")
 	get_tree().paused = false
 
-func _process(delta):
+func _process(_delta):
 	if get_tree().paused == true and unpause == true:
 		set_process_input(true)
 		unpause = false

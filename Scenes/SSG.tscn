@@ -21,3 +21,5 @@ script = ExtResource( 1 )
 
 [node name="DTPoint" type="Node2D" parent="."]
 position = Vector2( 570, -40 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]

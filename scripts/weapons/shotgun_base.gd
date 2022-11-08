@@ -2,10 +2,12 @@ extends DTFirearm
 class_name DTShotgun
 
 
-func s_fire(base_dir, pangle, pellets, spread, velocity_variance, force):
+func s_fire(base_dir, pangle, pellets, spread, velocity_variance):
 	if .firecheck():
-		var player = get_node("/root/root/Player")
-		var pforce = player.get("force")
+		$AudioStreamPlayer.stream = firing_sound
+		$AudioStreamPlayer.play()
+		#var player = get_node("/root/root/Player")
+		#var pforce = player.get("force")
 		var z = 0
 		var temp = bullet_velocity
 		while z < pellets:

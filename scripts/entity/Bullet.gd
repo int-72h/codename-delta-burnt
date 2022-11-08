@@ -28,7 +28,7 @@ func _ready():
 	pass
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var collision = move_and_collide(velocity)
 	if collision:
 		if collision.collider.get_instance_id() == parent_id:

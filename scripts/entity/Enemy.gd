@@ -20,9 +20,11 @@ onready var player = get_node("/root/root/Player")
 func _ready():
 	._init()
 	run_velocity = 100
-	$Node2D/AnimatedSprite.set("parent_id",get_instance_id())
+	$Node2D/AnimatedSprite.set("parent_id",get_instance_id()) # what????
 
-func think():
+func Think():
+	if !is_instance_valid(player):
+		return
 	dist_to_player = player.get("global_position").distance_to(self.global_position)
 	if (think_state == think.engaging) and abs(dist_to_player) <= abs(targ_dist):
 		state = movement_state.idle
@@ -71,12 +73,12 @@ func think():
 	$Node2D/AnimatedSprite.call("reload")
 
 func _physics_process(delta):
-	RayHandlingTick()
+	CollisionTick()
 	move_and_slide(velocity)
 	MovementTick()
 	FrictionTick(delta)
 	GravityTick(delta)
-	think()
+	Think()
 	print_debug_enemy()
 
 func on_hit(dmg):
@@ -86,11 +88,12 @@ func on_hit(dmg):
 	hurt_state = hurt.yes
 	emit_signal("hurt",dmg)
 
-func _process(delta):
+func _process(_delta):
 	if health <= 0:
 		emit_signal("die")
 		queue_free()
 	
+
 func print_debug_enemy():
 	$Label.text = "FIRING:%s\nTHINK:%s\nHURT:%s\nTARG:%s\nSET:%s\nAT:%s\nDIST2P:%s\nVEL:%s" % [firing_state,think_state,hurt_state,targ_dist,dist_set,at_dist,dist_to_player,velocity]
 
