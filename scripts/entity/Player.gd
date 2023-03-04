@@ -5,7 +5,8 @@ class_name DTPlayer
 var pangle = true
 var facing = float()
 var debug_text = ""
-var consts = [0.0,0.0,0] # entropy,juice,?
+var consts = [0.0,0.0]
+export var enabled_weapons = [true,true,true]
 onready var Abilities = $Abilities
 signal fire(direction, location)
 signal die(health, location)
@@ -47,16 +48,18 @@ func _unhandled_input(event):
 		state = movement_state.idle
 	elif event.is_action_pressed("ui_esc",true):
 		emit_signal("pause")
+	elif event.is_action_pressed("1", true) and enabled_weapons[1] == true:
+		$CarriedItem.switch_weps(1)
+	elif event.is_action_pressed("2", true) and enabled_weapons[2] == true:
+		$CarriedItem.switch_weps(2)
 	else:
 		Abilities.InputCheck(event)
 
 func _on_Enemy_hurt(x):
 	consts[1] += x
-
-func _on_CarriedItem_wep_switch(_wep_id):
-	pass
-
-func _on_CarriedItem_wep_fire(entropy,recoil):
+	
+	
+func _on_wep_fire(recoil,entropy):
 	consts[0] += entropy
 	var angle = facing
 	var y =  recoil * sin(facing) # angles are the same in the opposite direction, hsin(a) = o
@@ -75,12 +78,14 @@ func on_hit(damage):
 		die()
 
 func time_jump(direction):
-	if direction == "down":
-		global_position.y += 1000
-		current_time -= 1
-	if direction == "up":
-		global_position.y -= 1000
-		current_time += 1
+	if direction:
+		global_position.y += 8192
+		get_node("/root/root/Camera2D").position.y += 8192
+		dim = true
+	else:
+		global_position.y -= 8192
+		dim = false
+		get_node("/root/root/Camera2D").position.y -= 8192
 
 func die():
 	get_node("/root/root/SFX").stream = preload("res://assets/sfx_3.wav")
@@ -97,20 +102,11 @@ func die():
 func EntropyTick(delta):
 	consts[0] -= consts[0] * delta
 
-func JuiceTick(delta):
+func HeatTick(delta):
 	consts[1] -= consts[1] * delta 
 
-func HeatTick(delta):
-	if consts[0] > 500:
-		consts[2] += consts[0] - 500
-		consts[0] = 500
-	if consts[1] > 50:
-		consts[2] += consts[1] - 50
-		consts[1] = 50
-	consts[2] -= consts[2] * delta 
-
 func pickup_item(item_id):
-	$CarriedItem.weapons_enabled[item_id] = true
+	enabled_weapons[item_id] = true
 	$CarriedItem.call("switch_weps",item_id)
 	$HUD.call("on_item_pickup",item_id)
 
@@ -126,7 +122,6 @@ func _physics_process(delta):
 	FrictionTick(delta)
 	GravityTick(delta)
 	EntropyTick(delta)
-	JuiceTick(delta)
 	HeatTick(delta)
 	move_and_slide(velocity,Vector2(0,-1))
 	Abilities.AbilityTick()
@@ -136,7 +131,7 @@ func _physics_process(delta):
 		$AnimatedSprite.stop()
 		$AnimatedSprite.play("idle")
 		$AnimatedSprite.frame = 0
-	debug_text = "VX=%s\nVY=%s\nSTATE=%s\nDIRX=%s\nDIRY=%s\nFACING=%s\nLOC:%s\nPANGLE:%s\nENTROPY:%s\nRUNVEL:%s\nTIMER:%s\nJUICE:%s\nWEIRD:%s\n" % [velocity.x, velocity.y, movement_state.keys()[state], x.keys()[dir_x], y.keys()[dir_y], facing, contact_surface.keys()[location], pangle,consts[0],run_velocity,Abilities.ability_timers[0].time_left,consts[1],consts[2]]
+	debug_text = "VX=%s\nVY=%s\nSTATE=%s\nDIRX=%s\nDIRY=%s\nFACING=%s\nLOC:%s\nPANGLE:%s\nENTROPY:%s\nRUNVEL:%s\nTIMER:%s\nJUICE:%s" % [velocity.x, velocity.y, movement_state.keys()[state], x.keys()[dir_x], y.keys()[dir_y], facing, contact_surface.keys()[location], pangle,consts[0],run_velocity,Abilities.ability_timers[0].time_left,consts[1]]
 
 #func CollisionCheck():
 #	for i in get_slide_count():

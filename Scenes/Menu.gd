@@ -18,7 +18,7 @@ func _ready():
 	var tween = get_tree().create_tween().set_parallel()
 	var logos = [$MainLogo,$MainLogo2,$MainLogo3,$MainLogo5]
 	for x in logos:
-		tween.tween_property(x,"rect_position",$Node2D.rect_global_position - Vector2(450,100),1).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(x,"rect_position",$Node2D.rect_global_position - Vector2(750,100),1).set_trans(Tween.TRANS_SINE)
 		tween.tween_property(x,"custom_colors/font_color",Color.white,1).set_trans(Tween.TRANS_BOUNCE)
 	tween.tween_property($Alpha,"modulate",Color.white,1.5).set_trans(Tween.TRANS_EXPO)
 	tween.tween_property($Alpha2,"modulate",Color.white,1.5).set_trans(Tween.TRANS_EXPO)

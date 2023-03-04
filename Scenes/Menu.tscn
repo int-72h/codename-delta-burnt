@@ -28,13 +28,13 @@ font_data = SubResource( 3 )
 script = ExtResource( 1 )
 
 [node name="MainLogo" type="Label" parent="."]
-margin_left = -1256.0
-margin_top = 808.0
-margin_right = -806.0
-margin_bottom = 908.0
+margin_left = -1488.0
+margin_top = 1224.0
+margin_right = 12.0
+margin_bottom = 1424.0
 custom_colors/font_color = Color( 0, 0.0627451, 1, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Delta/Zero"
+text = "Codename: Delta"
 
 [node name="MainLogo2" type="Label" parent="."]
 margin_left = 2160.0
@@ -43,7 +43,7 @@ margin_right = 3060.0
 margin_bottom = 1216.0
 custom_colors/font_color = Color( 0.992157, 1, 0, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Delta/Zero"
+text = "Codename: Delta"
 
 [node name="MainLogo3" type="Label" parent="."]
 margin_left = -1256.0
@@ -52,7 +52,7 @@ margin_right = -806.0
 margin_bottom = -596.0
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
-text = "Delta/Zero"
+text = "Codename: Delta"
 
 [node name="MainLogo5" type="Label" parent="."]
 margin_left = 2160.0
@@ -62,7 +62,7 @@ margin_bottom = -288.0
 rect_pivot_offset = Vector2( 640, 912 )
 custom_colors/font_color = Color( 0.054902, 1, 0, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Delta/Zero"
+text = "Codename: Delta"
 
 [node name="Alpha" type="Label" parent="."]
 margin_left = 544.0
@@ -73,7 +73,7 @@ rect_rotation = -15.0
 rect_pivot_offset = Vector2( 450, 50 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "PRE ALPHA 07-11-22"
+text = "PRE ALPHA 12-12-22"
 
 [node name="Alpha2" type="Label" parent="."]
 margin_left = 408.0
@@ -84,7 +84,7 @@ rect_rotation = -15.0
 rect_pivot_offset = Vector2( 450, 50 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "PRE ALPHA 07-11-22"
+text = "PRE ALPHA 12-12-22"
 
 [node name="Button2" type="Button" parent="."]
 margin_left = 832.0
@@ -110,6 +110,7 @@ text = "Tim Allen Grunt"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
 
 [node name="Node2D" type="Control" parent="."]
+visible = false
 anchor_left = 0.417
 anchor_right = 0.417
 margin_left = 960.0

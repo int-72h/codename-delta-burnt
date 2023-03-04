@@ -21,7 +21,7 @@ var velocity = Vector2()
 var health
 var rep = false
 var jumps = 0
-var current_time = 0
+var dim = false
 var time_area_offset = 1000
 var max_jumps
 

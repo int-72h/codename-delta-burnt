@@ -1,23 +1,45 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://scripts/weapons/1911.gd" type="Script" id=1]
+[ext_resource path="res://assets/sfx_2.wav" type="AudioStream" id=1]
 [ext_resource path="res://assets/gun_placeholder_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/shoot_2.wav" type="AudioStream" id=3]
+[ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/item/Firearm.gd" type="Script" id=5]
+[ext_resource path="res://assets/gun_placeholder_2_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/gun_placeholder_2_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/gun_placeholder_2_3.png" type="Texture" id=8]
+[ext_resource path="res://assets/gun_placeholder_2_6.png" type="Texture" id=9]
+[ext_resource path="res://assets/gun_placeholder_2_4.png" type="Texture" id=10]
+[ext_resource path="res://assets/gun_placeholder_2_5.png" type="Texture" id=11]
+[ext_resource path="res://assets/placeholder_fire_effect.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
+"frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 9 ) ],
+"loop": false,
 "name": "default",
-"speed": 5.0
+"speed": 35.0
 } ]
 
 [node name="StaticBody2D" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource( 1 )
+script = ExtResource( 5 )
+weapon_name = "1911"
+scene = ExtResource( 4 )
+firing_sound = ExtResource( 3 )
+reload_sound = ExtResource( 1 )
+damage = 15.0
+firing_speed = 0.2
+bullet_velocity = 20.0
+reload_time = 0.4
+reserve_ammo = 49
+mag_size = 7
+entropy = 25.0
+recoil = 250
 
 [node name="DTPoint" type="Node2D" parent="."]
-position = Vector2( 30, -7 )
+position = Vector2( 35, -7 )
 scale = Vector2( 0.1, 0.1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -25,8 +47,23 @@ scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 1 )
 offset = Vector2( 120, 40 )
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 7.5, 5.5 )
-polygon = PoolVector2Array( 18.5, -7.5, 1.5, -7.5, 1.5, -2.5, 0.5, -2.5, 0.5, -1.5, -1.5, -1.5, -1.5, -0.5, -8.5, -0.5, -8.5, 2.5, -9.5, 2.5, -9.5, 5.5, -10.5, 5.5, -10.5, 7.5, -11.5, 7.5, -11.5, 10.5, -12.5, 10.5, -12.5, 15.5, -22.5, 15.5, -22.5, 9.5, -21.5, 9.5, -21.5, 6.5, -20.5, 6.5, -20.5, 3.5, -19.5, 3.5, -19.5, -1.5, -20.5, -1.5, -20.5, -2.5, -19.5, -2.5, -19.5, -3.5, -18.5, -3.5, -18.5, -4.5, -17.5, -4.5, -17.5, -7.5, -18.5, -7.5, -18.5, -8.5, -17.5, -8.5, -17.5, -10.5, -18.5, -10.5, -18.5, -11.5, -19.5, -11.5, -19.5, -12.5, -20.5, -12.5, -20.5, -13.5, -19.5, -13.5, -19.5, -12.5, -18.5, -12.5, -18.5, -13.5, -17.5, -13.5, -17.5, -14.5, -16.5, -14.5, -16.5, -15.5, 21.5, -15.5, 21.5, -14.5, 22.5, -14.5, 22.5, -10.5, 21.5, -10.5, 21.5, -8.5, 18.5, -8.5 )
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 36, -7 )
+emitting = false
+amount = 20
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.31
+randomness = 0.35
+texture = ExtResource( 12 )
+spread = 71.61
+gravity = Vector2( 0, 200 )
+initial_velocity = 142.86
+angular_velocity = 720.0
+angular_velocity_random = 0.08
+linear_accel_random = 1.0
+damping = 100.0
+damping_random = 0.61
+scale_amount = 0.8

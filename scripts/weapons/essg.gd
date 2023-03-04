@@ -1,4 +1,4 @@
-extends DTShotgun
+extends DTFirearm
 
 var _scene = preload("res://Scenes/Bullet.tscn")
 var _shoot = preload("res://assets/shoot_1.wav")

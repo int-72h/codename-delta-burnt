@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/item/Firearm.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/shoot_1.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/gun_placeholder_3.png" type="Texture" id=4]
+[ext_resource path="res://assets/placeholder_fire_effect.png" type="Texture" id=5]
+[ext_resource path="res://assets/sfx_1.wav" type="AudioStream" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
+} ]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource( 1 )
+weapon_name = "Shotgun"
+scene = ExtResource( 2 )
+firing_sound = ExtResource( 3 )
+reload_sound = ExtResource( 6 )
+damage = 5.0
+firing_speed = 0.1
+bullet_velocity = 20.0
+reload_time = 0.5
+reserve_ammo = 48
+mag_size = 15
+entropy = 15.0
+recoil = 20
+shotgun = true
+velocity_variance = 2.0
+spread = 0.3
+pellets = 4
+
+[node name="DTPoint" type="Node2D" parent="."]
+position = Vector2( 57, -4 )
+scale = Vector2( 0.1, 0.1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -4, 2.27374e-13 )
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 1 )
+animation = "New Anim"
+offset = Vector2( 230, -30 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 1.90735e-06, 1.90735e-06 )
+scale = Vector2( 0.1, 0.1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 58, -4 )
+emitting = false
+amount = 20
+lifetime = 0.1
+one_shot = true
+texture = ExtResource( 5 )
+initial_velocity = 349.75
+angular_velocity = -294.38
+angular_velocity_random = 0.38

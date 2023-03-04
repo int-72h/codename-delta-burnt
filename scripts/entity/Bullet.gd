@@ -4,6 +4,7 @@ const dt_name = "Bullet"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+const gravity = 7.5
 var velocity = Vector2()
 var damage
 signal hit(damage)
@@ -28,7 +29,9 @@ func _ready():
 	pass
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
+	velocity.y += gravity * delta
+	rotation = velocity.angle()
 	var collision = move_and_collide(velocity)
 	if collision:
 		if collision.collider.get_instance_id() == parent_id:

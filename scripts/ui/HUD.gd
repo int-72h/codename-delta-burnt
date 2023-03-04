@@ -11,7 +11,7 @@ var currently_playing_text = false
 signal not_playing_text
 onready var text_timer = Timer.new()
 onready var title_timer = Timer.new()
-onready var weapon_icons = {"Empty":load("res://assets/logo.png"), "1911":load("res://assets/gun_placeholder_2.png"),"shotgun":load("res://assets/gun_placeholder_3.png")}
+onready var weapon_icons = {"Empty":load("res://assets/logo.png"), "1911":load("res://assets/gun_placeholder_2.png"),"Shotgun":load("res://assets/gun_placeholder_3.png")}
 onready var pickup_text = {0:"How do you pickup nothing?!",1:"Gotta love the 1911! 7 rounds 'ought to be enough for any genetically modified soldier.",2:"Somebody got lazy with texturing."}
 func _ready():
 	text_timer.one_shot = true
@@ -20,6 +20,7 @@ func _ready():
 	get_tree().get_root().call_deferred("add_child", text_timer) #???
 	get_tree().get_root().call_deferred("add_child", title_timer)
 	get_parent().connect("pause",self,"_on_pause")
+	get_node("/root/root/Player/CarriedItem").connect("wep_switch",self,"_on_wep_switch")
 
 func set_ammo():
 	$MagBar.max_value = float(current_weapon.get("mag_size"))
@@ -28,8 +29,8 @@ func set_ammo():
 	$AmmoBar.value = float(current_weapon.get("current_ammo"))
 
 func set_icon():
-	$WeaponIcon.texture = weapon_icons[current_weapon.get("classname")]
-	$WeaponLabel.text = current_weapon.get("classname")
+	$WeaponIcon.texture = weapon_icons[current_weapon.get("weapon_name")]
+	$WeaponLabel.text = current_weapon.get("weapon_name")
 	
 func set_health(health):
 	$HealthBar.value = float(health)
@@ -42,12 +43,12 @@ func set_consts(consts):
 	for x in range(0,len(consts)):
 		get_node("VBoxContainer/ConstBar"+str(x)).value = consts[x]
 func _process(_delta):
+	if current_weapon == null:
+		return
 	text_tick()
 	#title_tick()
 	get_vals_tick()
 	hud_ability_tick()
-	if current_weapon == null:
-		return
 	if current_weapon.get("current_state") == 2: # ok what you need to do is get the firearm linked to an enum in the player- then read off of that and get the player to emit the signal???
 		$MagBar.hide()
 		$MagLabel.hide()
@@ -63,7 +64,7 @@ func _process(_delta):
 	else:
 		$ReloadBar.hide()
 		$ReloadLabel.hide()
-	if current_weapon.get("current_state") == 1 or  current_weapon.get("current_state") ==  2:
+	if current_weapon.get("current_state") == 1 or current_weapon.get("current_state") ==  2:
 		$Face.texture = med_face
 	elif $HealthBar.value < 25:
 		$Face.texture = bad_face
@@ -82,13 +83,14 @@ func hud_ability_tick():  # massively inflexible fix later
 			bar.value = timers[x].time_left
 
 
-func _on_wep_switch(_id):
-	var x = get_node("../CarriedItem").get_children()
-	set_firearm(x[len(x)-1])
-	set_ammo()
-	set_icon()
+func _on_wep_switch(id):
+	set_firearm(get_node("../CarriedItem").get_current_weapon())
+	if current_weapon != null:
+		set_ammo()
+		set_icon()
 
 func get_vals_tick():
+	set_ammo()
 	set_health(player.get("health"))
 	set_speed(player.get("velocity").x)
 	set_debug(player.get("debug_text"))

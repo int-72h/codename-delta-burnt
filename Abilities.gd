@@ -76,18 +76,16 @@ func add_dmg_01_tick(x):
 			emit_signal("ability_not_ready",1)
 			ability_states[x] = state.not_ready
 
-func time_jump_down_02_start(x,y=-1):
+func time_jump_down_02_start(x):
 	var timer = ability_timers[x]
-	if ability_states[x] == state.ready:
-		var ctime = player.get("current_time")
-		if ctime != y:
-			player.call("time_jump",("down" if y==-1 else "up"))
-			timer.wait_time = 0.1
-			timer.start()
-			ability_states[x] = state.active
-			emit_signal("ability_start",(2 if y==-1 else 3))
+	if ability_states[x] == state.ready and not player.get("dim"):
+		player.call("time_jump",true)
+		timer.wait_time = 0.1
+		timer.start()
+		ability_states[x] = state.active
+		emit_signal("ability_start",2)
 			
-func time_jump_down_02_tick(x,y=false): # all we do is stop the timer since it's a single action
+func _time_jump_down_02_tick(x,y): # all we do is stop the timer since it's a single action
 	var timer = ability_timers[x]
 	if timer.is_stopped():
 		if ability_states[x] == state.active:
@@ -100,11 +98,18 @@ func time_jump_down_02_tick(x,y=false): # all we do is stop the timer since it's
 			ability_states[x] = state.ready
 
 func time_jump_up_03_start(x):
-	time_jump_down_02_start(x,1)
+	var timer = ability_timers[x]
+	if ability_states[x] == state.ready and player.get("dim"):
+		player.call("time_jump",false)
+		timer.wait_time = 0.1
+		timer.start()
+		ability_states[x] = state.active
+		emit_signal("ability_start",2)
 
-
+func time_jump_down_02_tick(x):
+	_time_jump_down_02_tick(x,false)
 func time_jump_up_03_tick(x):
-	time_jump_down_02_tick(x,true)
+	_time_jump_down_02_tick(x,true)
 	
 func AbilityTick():
 	for x in range(0,len(ability_array)):

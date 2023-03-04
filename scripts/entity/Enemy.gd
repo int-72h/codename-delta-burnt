@@ -5,6 +5,8 @@ const dt_name = "DTEnemy"
 # var a = 2
 # var b = "text"
 signal die
+signal fire
+signal reload
 signal hurt(x)
 enum firing{ no,yes}
 enum think {idle, engaging, retreating}
@@ -19,8 +21,8 @@ var dist_to_player = 0
 onready var player = get_node("/root/root/Player")
 func _ready():
 	._init()
+	$Node2D.switch_weps(1)
 	run_velocity = 100
-	$Node2D/AnimatedSprite.set("parent_id",get_instance_id()) # what????
 
 func Think():
 	if !is_instance_valid(player):
@@ -40,7 +42,7 @@ func Think():
 		at_dist = false
 	if at_dist and think_state == think.engaging:
 		if hurt_state == hurt.no:
-			$Node2D/AnimatedSprite.call("fire",get_angle_to(player.get("global_position")),true) # ugly firing code. change
+			emit_signal("fire")# ugly firing code. change
 	elif dist_to_player > 300 or (hurt_state == hurt.yes and think_state == think.retreating and at_dist == true and dist_set == true): # lost em, or we're not wussing
 		hurt_state = hurt.no
 		think_state = think.idle
@@ -70,7 +72,7 @@ func Think():
 				dir_x = x.right
 			targ_dist = dist_to_player + 300
 			dist_set = true
-	$Node2D/AnimatedSprite.call("reload")
+	emit_signal("reload")
 
 func _physics_process(delta):
 	CollisionTick()
